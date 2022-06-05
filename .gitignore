@@ -1,2 +1,5 @@
 # run env
 .vscode/
+
+# python
+screen/__pycache__/
