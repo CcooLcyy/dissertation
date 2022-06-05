@@ -1,4 +1,6 @@
+import imp
 from screen.grab_screen import grabScreen
+from screen.getWindowRegion import getWindowRegion
 import cv2 as cv
 import numpy as np
 import time
@@ -7,13 +9,13 @@ def turnToFPS(time):
   fps = 1 / time
   return fps
 
+left, up, right, down = getWindowRegion()
 
 while True:
   # benchmark Start
   firstTime = time.time()
 
-
-  img = grabScreen()
+  img = grabScreen(left, up, right, down)
   img = np.reshape(img.grabScreen(), (img.height, img.width, 4))
   
   key = cv.waitKey(1)

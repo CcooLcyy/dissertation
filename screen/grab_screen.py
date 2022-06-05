@@ -15,18 +15,6 @@ def getRate():
   rate = realX / nowX
   return rate
 
-# def prevHandleSets():
-#   left, up, right, down = getWindowRegion()
-
-#   left = int(left * 1.25) + 10
-#   up = int(up * 1.25) + 40
-#   right = int(right * 1.25) - 10
-#   down = int(down * 1.25) - 10
-
-#   WIDTH = right -left + 1
-#   HEIGHT = down - up + 1
-#   return WIDTH, HEIGHT, left, up, right, down
-
 class GrabScreen():
   def __init__(self, left, up, right, down, width, height):
     self.left = left
@@ -45,12 +33,12 @@ class GrabScreen():
       bmp.CreateCompatibleBitmap(srcdc, self.width, self.height)
       memdc.SelectObject(bmp)
       memdc.BitBlt((0, 0), (self.width, self.height), srcdc, (self.left, self.up), win32con.SRCCOPY)
-      bmp.SaveBitmapFile(memdc, './test.bmp')
+      # bmp.SaveBitmapFile(memdc, './test.bmp')
       
       arrayFromBuffer = bmp.GetBitmapBits(True)
       img = np.frombuffer(arrayFromBuffer, 'uint8')
 
-      srcdc.DeleteDC()
+      srcdc.DeleteDC() 
       memdc.DeleteDC()
       win32gui.ReleaseDC(hwin, hwindc)
       win32gui.DeleteObject(bmp.GetHandle())
@@ -71,8 +59,7 @@ class GrabScreen():
 
       return img
 
-def grabScreen():
-  left, up, right, down = getWindowRegion()
+def grabScreen(left, up, right, down):
   left = int(left * getRate()) + 10
   up = int(up * getRate()) + 40
   right = int(right * getRate()) - 10
@@ -81,72 +68,7 @@ def grabScreen():
   HEIGHT = down - up + 1
 
   grabScreen = GrabScreen(left, up, right, down, WIDTH, HEIGHT)
-
   return grabScreen
-
-
-
-
-
-
-
-
-
-
-# def grab_screen():
-   
-#   left, up, right, down = getWindowRegion()
-
-#   left = int(left * 1.25) + 10
-#   up = int(up * 1.25) + 40
-#   right = int(right * 1.25) - 10
-#   down = int(down * 1.25) - 10
-
-#   WIDTH = right -left + 1
-#   HEIGHT = down - up + 1
-
-
-#   hwin = win32gui.GetDesktopWindow()
-
-
-#   hwindc = win32gui.GetWindowDC(hwin)
-#   srcdc = win32ui.CreateDCFromHandle(hwindc)
-#   memdc = srcdc.CreateCompatibleDC()
-
-#   bmp = win32ui.CreateBitmap()
-#   bmp.CreateCompatibleBitmap(srcdc, WIDTH, HEIGHT)
-#   memdc.SelectObject(bmp)
-#   memdc.BitBlt((0, 0), (WIDTH, HEIGHT), srcdc, (left, up), win32con.SRCCOPY)
-#   bmp.SaveBitmapFile(memdc, './test.bmp')
-  
-
-#   arrayFromBuffer = bmp.GetBitmapBits(True)
-#   img = np.frombuffer(arrayFromBuffer, 'uint8')
-
-#   srcdc.DeleteDC()
-#   memdc.DeleteDC()
-#   win32gui.ReleaseDC(hwin, hwindc)
-#   win32gui.DeleteObject(bmp.GetHandle())
-
-
-
-#   # !!!TEST:
-#   # print(img)
-#   # while True:
-#   #   key = cv.waitKey(0)
-#   #   if key == ord('q'):
-#   #     break
-#   #   else:
-#   #     img = np.reshape(img, (height, width, 4))
-#   #     # 从屏幕获取的图像就是RGB格式无需通过BGR2RGB
-#   #     # img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-#   #     img = cv.Canny(img, 1, 1)
-#   #     print('The shape of img by Canny is ' + str(np.shape(img)))
-#   #     cv.imshow('show', img)
-
-
-#   return img
-
 
 if __name__ == '__main__':
   grabScreen()

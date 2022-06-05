@@ -2,4 +2,4 @@
 .vscode/
 
 # python
-screen/__pycache__/
+*/__pycache__/
