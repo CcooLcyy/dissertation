@@ -1,4 +1,5 @@
 from fileinput import filename
+from turtle import width
 from screen.grab_screen import grabScreen
 from screen.getWindowRegion import getWindowRegion
 import cv2 as cv
@@ -14,7 +15,8 @@ START_VALUE = 1
 
 trainingData = []
 
-left, up, right, down = getWindowRegion()
+region = ()
+region = getWindowRegion()
 runTime = 0
 
 fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
@@ -28,7 +30,7 @@ while True:
   firstTime = time.time()
   
 
-  img = grabScreen(left, up, right, down).grabScreen()
+  img = grabScreen(region)
   img = cv.resize(img, (480, 270))
   trainingData.append(img)
 
