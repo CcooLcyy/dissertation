@@ -14,7 +14,8 @@ def getWindowRegion():
 
   while not window:
     if titleTage == True:
-      WINDOW_TITLE = 'Grand Theft Auto V'
+      # WINDOW_TITLE = 'Grand Theft Auto V'
+      WINDOW_TITLE = 'test.txt - 记事本'
       titleTage = False
     window = win32gui.FindWindow(None, WINDOW_TITLE)
 

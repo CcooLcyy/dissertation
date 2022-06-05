@@ -1,4 +1,3 @@
-import imp
 from screen.grab_screen import grabScreen
 from screen.getWindowRegion import getWindowRegion
 import cv2 as cv
@@ -11,6 +10,7 @@ def turnToFPS(time):
 
 left, up, right, down = getWindowRegion()
 
+runTime = 0
 while True:
   # benchmark Start
   firstTime = time.time()
@@ -26,6 +26,10 @@ while True:
 
 
   # benchmark End
-  lastTime = time.time() - firstTime
-  fps = '{:.2f}'.format(turnToFPS(lastTime))
-  print(str(fps) + ' FPS')
+  lastTime = time.time()
+  benchmark = lastTime - firstTime
+  runTime = runTime + benchmark
+  if runTime > 2:
+    fps = '{:.2f}'.format(turnToFPS(benchmark))
+    print(str(fps) + ' FPS')
+    runTime = 0
