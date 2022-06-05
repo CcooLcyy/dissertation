@@ -1,5 +1,4 @@
 from screen.getWindowRegion import getWindowRegion
-# from getWindowRegion import getWindowRegion
 # 此文件不应该单独执行，如果需要单独执行，请将此注释上方两条代码更改注释状态（已注释改为未注释，未注释改为已注释）
 import win32gui, win32ui, win32con, win32print, win32api
 import numpy as np

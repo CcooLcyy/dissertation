@@ -1,34 +1,10 @@
 import win32gui
 import sys
 
-
-  
-
-
-titleTage = True
-window = None
-
 def getWindowRegion():
-  global titleTage
-  global window
-
-  while not window:
-    if titleTage == True:
-      # WINDOW_TITLE = 'Grand Theft Auto V'
-      WINDOW_TITLE = 'test.txt - 记事本'
-      titleTage = False
-    window = win32gui.FindWindow(None, WINDOW_TITLE)
-
-
-
-
-
-  # if titleTage == True:
-  #   WINDOW_TITLE = 'test.txt - 记事本'
-  #   if WINDOW_TITLE == '':
-  #     print('输入标题栏名称啊喂！！！！')
-  #     sys.exit()
-    
+  # WINDOW_TITLE = 'Grand Theft Auto V'
+  WINDOW_TITLE = 'test.txt - 记事本'
+  window = win32gui.FindWindow(None, WINDOW_TITLE)    
   # 监控的窗口需要运行在窗口状态
 
 
