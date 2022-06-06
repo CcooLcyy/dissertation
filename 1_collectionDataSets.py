@@ -1,5 +1,6 @@
 from screen.grab_screen import grabScreen
 from screen.getWindowRegion import getWindowRegion
+from key.keyCheck import keyCheck
 import cv2 as cv
 import time
 import numpy as np
@@ -10,12 +11,13 @@ def turnToFPS(time):
   return fps
 
 def main():
+  paused = False
   START_VALUE = 1
+
 
   trainingData = []
 
-  region = ()
-  region = getWindowRegion()
+  # 进行预处理
   runTime = 0
 
   fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
@@ -23,34 +25,34 @@ def main():
     START_VALUE += 1
     fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
   print('file from No.{}.'.format(START_VALUE))
+  if not paused:
+    while True:
+      # benchmark Start
+      firstTime = time.time()
 
-  while True:
-    # benchmark Start
-    firstTime = time.time()
+      img = grabScreen()
+      # 控制帧率
+      # time.sleep(0.008)
+      # 修改下行使数据能够适应CNN
+      # img = cv.resize(img, (480, 270))
 
-    img = grabScreen(region)
-    # 控制帧率
-    # time.sleep(0.008)
-    # 修改下行使数据能够适应CNN
-    # img = cv.resize(img, (480, 270))
+      # benchmark End
+      lastTime = time.time()
+      benchmark = lastTime - firstTime
+      runTime = runTime + benchmark
+      if runTime > 1:
+        fps = '{:.2f}'.format(turnToFPS(benchmark))
+        print(str(fps) + ' FPS')
+        runTime = 0
 
-    # benchmark End
-    lastTime = time.time()
-    benchmark = lastTime - firstTime
-    runTime = runTime + benchmark
-    if runTime > 1:
-      fps = '{:.2f}'.format(turnToFPS(benchmark))
-      print(str(fps) + ' FPS')
-      runTime = 0
-
-    # 向文件写入
-    trainingData.append(img)
-    if len(trainingData) == 500:
-      np.save(fileName, trainingData)
-      START_VALUE += 1
-      trainingData = []
-      print('File {} has SAVED!'.format(START_VALUE))
-      fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
+      # 向文件写入
+      trainingData.append(img)
+      if len(trainingData) == 500:
+        np.save(fileName, trainingData)
+        START_VALUE += 1
+        trainingData = []
+        print('File {} has SAVED!'.format(START_VALUE))
+        fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
 
 def test():
   region = ()
@@ -61,7 +63,7 @@ def test():
     # benchmark Start
     firstTime = time.time()
 
-    img = grabScreen(region)
+    img = grabScreen()
     # img = cv.resize(img, (480, 270))
     key = cv.waitKey(1)
     if key == ord('q'):
@@ -79,5 +81,5 @@ def test():
       runTime = 0
 
 
-# main()
-test()
+main()
+# test()

@@ -1,7 +1,11 @@
 import win32gui, win32ui, win32con
+from screen.getWindowRegion import getWindowRegion
 import numpy as np
 
-def grabScreen(region):
+region = ()
+region = getWindowRegion()
+
+def grabScreen():
   left, up, right, down = region
   width = right -left + 1
   height = down - up + 1
