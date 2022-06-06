@@ -21,14 +21,13 @@ def getWindowRegion():
     print('ERROR!!')
     print('Please make sure the window has been opened, and resume the program!!\n')
     sys.exit()
-  else:
-    win32gui.SetForegroundWindow(window)
-
-  # 判断屏幕是否进行了缩放
+  # 将需要监视的窗口置顶。
+  # else:
+  #   win32gui.SetForegroundWindow(window)
 
   # 获取的屏幕位置为四个，分别是左上右下
   left, up, right, down = (win32gui.GetWindowRect(window))
-  pos = int(left*getRate()), int(up*getRate()), int(right*getRate()), int(down*getRate())
+  pos = int(left*getRate() + 10), int(up*getRate() + 40), int(right*getRate() - 10), int(down*getRate() - 10)
   if (pos[0] or pos[1] or pos[2] or pos[3]) < 0:
     print('ERROR!!\n')
     print('Can not find the window you want\n')

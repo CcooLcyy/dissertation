@@ -1,7 +1,4 @@
-from turtle import width
-from screen.getWindowRegion import getWindowRegion
-# 此文件不应该单独执行，如果需要单独执行，请将此注释上方两条代码更改注释状态（已注释改为未注释，未注释改为已注释）
-import win32gui, win32ui, win32con, win32print, win32api
+import win32gui, win32ui, win32con
 import numpy as np
 
 def grabScreen(region):
@@ -21,8 +18,8 @@ def grabScreen(region):
   memdc.SelectObject(bmp)
   memdc.BitBlt((0, 0), (width, height), srcdc, (left, up), win32con.SRCCOPY)
   
-  signedIntsArray = bmp.GetBitmapBits(True)
-  img = np.frombuffer(signedIntsArray, dtype = 'uint8')
+  arrayFromBuffer = bmp.GetBitmapBits(True)
+  img = np.frombuffer(arrayFromBuffer, dtype = 'uint8')
   img.shape = (height,width,4)
 
   srcdc.DeleteDC()

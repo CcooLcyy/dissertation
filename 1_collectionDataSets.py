@@ -28,21 +28,11 @@ def main():
     # benchmark Start
     firstTime = time.time()
 
-    
-
     img = grabScreen(region)
     # 控制帧率
-    time.sleep(0.008)
+    # time.sleep(0.008)
     # 修改下行使数据能够适应CNN
     # img = cv.resize(img, (480, 270))
-    trainingData.append(img)
-
-    if len(trainingData) == 500:
-      np.save(fileName, trainingData)
-      START_VALUE += 1
-      trainingData = []
-      print('File {} has SAVED!'.format(START_VALUE))
-      fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
 
     # benchmark End
     lastTime = time.time()
@@ -53,6 +43,15 @@ def main():
       print(str(fps) + ' FPS')
       runTime = 0
 
+    # 向文件写入
+    trainingData.append(img)
+    if len(trainingData) == 500:
+      np.save(fileName, trainingData)
+      START_VALUE += 1
+      trainingData = []
+      print('File {} has SAVED!'.format(START_VALUE))
+      fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
+
 def test():
   region = ()
   region = getWindowRegion()
@@ -61,7 +60,6 @@ def test():
   while True:
     # benchmark Start
     firstTime = time.time()
-    
 
     img = grabScreen(region)
     # img = cv.resize(img, (480, 270))
@@ -71,16 +69,15 @@ def test():
     else:
       cv.imshow('show', img)
 
-
     # benchmark End
     lastTime = time.time()
     benchmark = lastTime - firstTime
     runTime += benchmark
     if runTime > 1:
       fps = '{:.2f}'.format(turnToFPS(benchmark))
-      print(str(fps) + ' FPS')
+      print('{} FPS         '.format(str(fps)), end='\r')
       runTime = 0
 
 
-main()
-# test()
+# main()
+test()
