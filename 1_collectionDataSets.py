@@ -16,7 +16,7 @@ def main():
 
 
   # trainingData = []
-  trainingData = np.array([], dtype=object)
+  trainingData = np.asanyarray([], dtype=object)
 
   # 进行预处理
   runTime = 0
@@ -43,7 +43,7 @@ def main():
       # 控制帧率
       # time.sleep(0.008)
       # 修改下行使数据能够适应CNN
-      # img = cv.resize(img, (480, 270))
+      img = cv.resize(img, (480, 270))
       
       # 处理键盘输入
       outputKey = getArrayOfKey()
@@ -62,9 +62,9 @@ def main():
       trainingData = np.append(trainingData, [img, outputKey])
       if len(trainingData) == 1000:
         np.save(fileName, trainingData)
-        START_VALUE += 1
         trainingData = []
         print('File {} has SAVED!             '.format(START_VALUE))
+        START_VALUE += 1
         fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
 
 def test():
