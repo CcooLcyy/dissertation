@@ -1,6 +1,6 @@
 from screen.grab_screen import grabScreen
 from screen.getWindowRegion import getWindowRegion
-from key.keyCheck import keyCheck
+from key.outputKey import getArrayOfKey
 import cv2 as cv
 import time
 import numpy as np
@@ -15,7 +15,8 @@ def main():
   START_VALUE = 1
 
 
-  trainingData = []
+  # trainingData = []
+  trainingData = np.array([], dtype=object)
 
   # 进行预处理
   runTime = 0
@@ -24,17 +25,28 @@ def main():
   while os.path.isfile(fileName):
     START_VALUE += 1
     fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
-  print('file from No.{}.'.format(START_VALUE))
+
+
+  print('file from No.{}.'.format(START_VALUE), end='\r')
+  time.sleep(2)
+  print('We will start now !!\n', end='\r')
+  time.sleep(2)
+
+
   if not paused:
     while True:
       # benchmark Start
       firstTime = time.time()
 
+      # 处理屏幕
       img = grabScreen()
       # 控制帧率
       # time.sleep(0.008)
       # 修改下行使数据能够适应CNN
       # img = cv.resize(img, (480, 270))
+      
+      # 处理键盘输入
+      outputKey = getArrayOfKey()
 
       # benchmark End
       lastTime = time.time()
@@ -42,16 +54,17 @@ def main():
       runTime = runTime + benchmark
       if runTime > 1:
         fps = '{:.2f}'.format(turnToFPS(benchmark))
-        print(str(fps) + ' FPS')
+        print('{} FPS         '.format(str(fps)), end='\r')
         runTime = 0
 
       # 向文件写入
-      trainingData.append(img)
-      if len(trainingData) == 500:
+      # trainingData.append([img, outputKey])
+      trainingData = np.append(trainingData, [img, outputKey])
+      if len(trainingData) == 1000:
         np.save(fileName, trainingData)
         START_VALUE += 1
         trainingData = []
-        print('File {} has SAVED!'.format(START_VALUE))
+        print('File {} has SAVED!             '.format(START_VALUE))
         fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
 
 def test():
