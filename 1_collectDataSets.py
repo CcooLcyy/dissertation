@@ -42,7 +42,10 @@ def main():
       # 控制帧率
       time.sleep(0.007)
       # 修改下行使数据能够适应CNN
-      img = cv.resize(img, (480, 270))
+      # img = cv.resize(img, (480, 270))
+      
+      img = cv.Canny(img, 1, 1)
+      cv.imshow('show', img)
       
       # 处理键盘输入
       outputKey = getArrayOfKey()

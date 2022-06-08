@@ -104,7 +104,7 @@ win32gui.DeleteObject(bmp.GetHandle())
 
 在使用笔记本进行编写的时候发现很多时候无法对准需要监视的窗口。在调用win32api之后发现屏幕的分辨率之后原始分辨率缩放了125%，所以总是出现无法对准监视屏幕的问题。
 
-<img src=".\\_photos\\test.bmp" alt="无法对齐监视窗口" style="zoom:50%;" />
+<img src=".resources\\_photos\\test.bmp" alt="无法对齐监视窗口" style="zoom:50%;" />
 
 使用win32api可以获取原始的分辨率与实际的分辨率，通过计算可以获得放大倍数，可以适应不同计算机的分辨率，以此来实时调整获取窗口的大小与位置。
 
