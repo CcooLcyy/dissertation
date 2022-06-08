@@ -1,3 +1,4 @@
+from key.keyCheck import keyCheck
 from screen.grab_screen import grabScreen
 from screen.getWindowRegion import getWindowRegion
 from key.outputKey import getArrayOfKey
@@ -32,9 +33,8 @@ def main():
   print('We will start now !!\n', end='\r')
   time.sleep(2)
 
-
-  if not paused:
-    while True:
+  while True:
+    if not paused:
       # benchmark Start
       firstTime = time.time()
 
@@ -66,6 +66,17 @@ def main():
         print('File {} has SAVED!             '.format(START_VALUE))
         START_VALUE += 1
         fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
+
+    key = keyCheck()
+    if ord('T') in key:
+      if paused:
+        paused = False
+        print('继续            ', end='\r')
+        time.sleep(1)
+      else:
+        paused = True
+        print('暂停            ', end='\r')
+        time.sleep(1)
 
 def test():
   region = ()
