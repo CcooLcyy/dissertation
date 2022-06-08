@@ -41,7 +41,7 @@ def main():
       # 处理屏幕
       img = grabScreen()
       # 控制帧率
-      # time.sleep(0.008)
+      time.sleep(0.007)
       # 修改下行使数据能够适应CNN
       img = cv.resize(img, (480, 270))
       
@@ -78,32 +78,4 @@ def main():
         print('暂停            ', end='\r')
         time.sleep(1)
 
-def test():
-  region = ()
-  region = getWindowRegion()
-  runTime = 0
-
-  while True:
-    # benchmark Start
-    firstTime = time.time()
-
-    img = grabScreen()
-    # img = cv.resize(img, (480, 270))
-    key = cv.waitKey(1)
-    if key == ord('q'):
-      break
-    else:
-      cv.imshow('show', img)
-
-    # benchmark End
-    lastTime = time.time()
-    benchmark = lastTime - firstTime
-    runTime += benchmark
-    if runTime > 1:
-      fps = '{:.2f}'.format(turnToFPS(benchmark))
-      print('{} FPS         '.format(str(fps)), end='\r')
-      runTime = 0
-
-
 main()
-# test()
