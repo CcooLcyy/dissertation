@@ -1,6 +1,5 @@
 from key.keyCheck import keyCheck
 from screen.grab_screen import grabScreen
-from screen.getWindowRegion import getWindowRegion
 from key.outputKey import getArrayOfKey
 import cv2 as cv
 import time
@@ -22,11 +21,11 @@ def main():
   # 进行预处理
   runTime = 0
 
+  # 处理文件路径与文件名
   fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
   while os.path.isfile(fileName):
     START_VALUE += 1
     fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
-
 
   print('file from No.{}.'.format(START_VALUE), end='\r')
   time.sleep(2)
@@ -58,7 +57,6 @@ def main():
         runTime = 0
 
       # 向文件写入
-      # trainingData.append([img, outputKey])
       trainingData = np.append(trainingData, [img, outputKey])
       if len(trainingData) == 1000:
         np.save(fileName, trainingData)

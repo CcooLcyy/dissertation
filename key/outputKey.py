@@ -13,6 +13,9 @@ voidKey   = [0,0,0,0,0,0,0,0,1]
 outputKey = [0,0,0,0,0,0,0,0,0]
 
 def getArrayOfKey():
+  '''
+  获取方向按键，并且将按键以array的形式返回
+  '''
   keys = keyCheck()
   if 'W' in keys and 'A' in keys:
       output = waKey
