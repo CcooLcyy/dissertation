@@ -17,13 +17,3 @@ def keyCheck():
     if win32api.GetAsyncKeyState(key):
       keys.append(key)
   return keys
-
-
-if __name__ == "__main__":
-# 测试函数是否运行正常
-  while True:
-    keys = keyCheck()
-    key = ord('Q')
-    if key in keys:
-      print(key)
-      break

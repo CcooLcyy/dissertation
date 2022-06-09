@@ -12,10 +12,10 @@ def getRate():
 
 
 def getWindowRegion():
-  WINDOW_TITLE = input('输入要监视的窗口名称\n')
-  # WINDOW_TITLE = 'Grand Theft Auto V'
+  # WINDOW_TITLE = input('输入要监视的窗口名称\n')
+  WINDOW_TITLE = 'Grand Theft Auto V'
   # 只用于测试获取屏幕函数
-  # WINDOW_TITLE = 'test.txt - 记事本'
+  WINDOW_TITLE = 'test.txt - 记事本'
   window = win32gui.FindWindow(None, WINDOW_TITLE)    
   # 监控的窗口需要运行在窗口状态
 
