@@ -1,4 +1,5 @@
-
+from tflearn import input_data, conv_2d, max_pool_2d, local_response_normalization, merge, avg_pool_2d, dropout, fully_connected, regression
+import tflearn
 
 def inception_v3(width, height, frame_count, lr, output=9, model_name = 'sentnet_color.model'):
   network = input_data(shape=[None, width, height,3], name='input')
