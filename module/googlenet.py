@@ -1,7 +1,7 @@
 from tflearn import input_data, conv_2d, max_pool_2d, local_response_normalization, merge, avg_pool_2d, dropout, fully_connected, regression
 import tflearn
 
-def inception_v3(width, height, frame_count, lr, output=9, model_name = 'sentnet_color.model'):
+def inception_v3(width, height, frame_count, lr=1e-3, output=9, model_name = 'sentnet_color.model'):
   network = input_data(shape=[None, width, height,3], name='input')
   conv1_7_7 = conv_2d(network, 64, 7, strides=2, activation='relu', name = 'conv1_7_7_s2')
   pool1_3_3 = max_pool_2d(conv1_7_7, 3,strides=2)
