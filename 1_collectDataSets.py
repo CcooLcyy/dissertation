@@ -14,11 +14,9 @@ def main():
   paused = False
   START_VALUE = 1
 
-
-  # trainingData = []
   trainingData = np.asanyarray([], dtype=object)
 
-  # 进行预处理
+  # 进行预处理，方便生成benchmark
   runTime = 0
 
   # 处理文件路径与文件名
@@ -27,11 +25,13 @@ def main():
     START_VALUE += 1
     fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
 
+  # 准备时间
   print('file from No.{}.'.format(START_VALUE), end='\r')
   time.sleep(2)
   print('We will start now !!\n', end='\r')
   time.sleep(2)
 
+  # 主循环
   while True:
     if not paused:
       # benchmark Start
@@ -44,9 +44,9 @@ def main():
       # 修改下行使数据能够适应CNN
       # img = cv.resize(img, (480, 270))
 
-      img = cv.Canny(img, 1, 1)
-      cv.waitKey(1)
-      cv.imshow('show', img)
+      # img = cv.Canny(img, 1, 1)
+      # cv.waitKey(1)
+      # cv.imshow('show', img)
       
       # 处理键盘输入
       outputKey = getArrayOfKey()
@@ -55,6 +55,7 @@ def main():
       lastTime = time.time()
       benchmark = lastTime - firstTime
       runTime = runTime + benchmark
+      # 打印帧率，控制每秒打印一次，降低打印对性能的影响
       if runTime > 1:
         fps = '{:.2f}'.format(turnToFPS(benchmark))
         print('{} FPS         '.format(str(fps)), end='\r')
@@ -64,7 +65,7 @@ def main():
       trainingData = np.append(trainingData, [img, outputKey])
       if len(trainingData) == 1000:
         np.save(fileName, trainingData)
-        trainingData = []
+        trainingData = np.asanyarray([], dtype=object)
         print('File {} has SAVED!             '.format(START_VALUE))
         START_VALUE += 1
         fileName = './trainingDatas/trainingData-{}.npy'.format(START_VALUE)
